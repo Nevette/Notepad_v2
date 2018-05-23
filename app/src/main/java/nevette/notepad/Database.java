@@ -34,19 +34,6 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Note downloadNote (Long id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(NOTES_TABLE, NOTES_COLUMN, "id = ?", new String[] {id.toString()}, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        Note note = new Note();
-        note.setId(Long.parseLong(cursor.getString(0)));
-        note.setTitle(cursor.getString(1));
-        note.setContent(cursor.getString(2));
-        return note;
-    }
-
     public void saveNote(Note note){
         SQLiteDatabase db = this.getWritableDatabase();
 
