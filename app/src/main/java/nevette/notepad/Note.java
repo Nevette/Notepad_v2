@@ -16,12 +16,12 @@ public class Note implements Serializable {
         this.id = id;
     }
 
-    public String getTitile(){
+    public String getTitle(){
         return title;
     }
 
-    public String setTitle(String title){
-        return title;
+    public void setTitle(String title){
+        this.title = title;
     }
 
     public String getContent(){

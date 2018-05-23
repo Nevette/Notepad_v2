@@ -28,7 +28,7 @@ public class Database extends SQLiteOpenHelper {
     public void addNote(Note note){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(NOTE_TITLE, note.getTitile());
+        values.put(NOTE_TITLE, note.getTitle());
         values.put(NOTE_CONTENT, note.getContent());
         db.insert(NOTES_TABLE, null, values);
         db.close();
@@ -51,7 +51,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(NOTE_TITLE, note.getTitile());
+        values.put(NOTE_TITLE, note.getTitle());
         values.put(NOTE_CONTENT, note.getContent());
 
         db.update(NOTES_TABLE, values, "id = ?", new String[] {note.getId().toString()});
@@ -61,6 +61,7 @@ public class Database extends SQLiteOpenHelper {
     public void deleteNote(Note note){
         SQLiteDatabase db = this.getWritableDatabase();
         String sql = "delete from " + NOTES_TABLE + " where id = " + note.getId().toString();
+        System.out.println(sql);
         db.execSQL(sql);
         db.close();
     }
@@ -86,7 +87,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create table notes " +
+        String sql = "create table " + NOTES_TABLE + " " +
                 "( id integer primary key autoincrement, " +
                 "title text," +
                 "content text )";
@@ -95,7 +96,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int j){
-        String sql = "drop table if exists notes";
+        String sql = "drop table if exists " + NOTES_TABLE;
         db.execSQL(sql);
         this.onCreate(db);
     }
